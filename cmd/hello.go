@@ -7,10 +7,11 @@ import (
 )
 
 var helloCmd = &cobra.Command{
-	Use: "hello",
-	Short: "debugging command",
-	Args: cobra.ExactArgs(1),
-	RunE: hello,
+	Use:    "hello",
+	Short:  "debugging command",
+	Args:   cobra.ExactArgs(1),
+	RunE:   hello,
+	Hidden: true,
 }
 
 func hello(cmd *cobra.Command, args []string) error {

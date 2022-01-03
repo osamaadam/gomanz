@@ -1,33 +1,19 @@
 package manz
 
 import (
-	"database/sql"
 	"fmt"
+	"log"
 	"strings"
 
 	"github.com/pkg/errors"
 )
 
-type Soldier struct {
-	Marhla      uint
-	Segl_no     uint
-	Military_no uint
-	S_name      string
-	Moahel_code uint
-	Etgah_code  uint
-	Moahel      string
-	Etgah       string
-	Selah       string
-	Gov         int
-	Note        string
-	Tawzeaa     string
-}
-
 var (
 	ErrNoSoldiers = errors.New("no soldiers provided")
 )
 
-func InsertMany(manzDB *sql.DB, soldiers *[]Soldier) error {
+// Inserts many soldiers at once.
+func (m *Manzoma) InsertMany(soldiers *[]Soldier) error {
 	if len(*soldiers) <= 0 {
 		return errors.WithStack(ErrNoSoldiers)
 	}
@@ -55,7 +41,7 @@ func InsertMany(manzDB *sql.DB, soldiers *[]Soldier) error {
 		soldier.Selah = "ادارة الاشارة"
 		soldier.Note = "-"
 
-		sqlInsert := fmt.Sprintf("(%d, %d, %d, N'%s', %d, %d, N'%s', N'%s', N'%s', N'%s', %d, N'%s')\n",
+		sqlInsert := fmt.Sprintf("(%d, %d, %d, N'%s', %d, %d, N'%s', N'%s', N'%s', N'%s', %d, N'%s')",
 			soldier.Marhla,
 			soldier.Segl_no,
 			soldier.Military_no,
@@ -74,7 +60,7 @@ func InsertMany(manzDB *sql.DB, soldiers *[]Soldier) error {
 
 	insertQuery += strings.Join(soldiersSql, ", ")
 
-	res, err := manzDB.Exec(insertQuery)
+	res, err := m.DB.Exec(insertQuery)
 	if err != nil {
 		return errors.WithStack(err)
 	}
@@ -84,7 +70,7 @@ func InsertMany(manzDB *sql.DB, soldiers *[]Soldier) error {
 		return errors.WithStack(err)
 	}
 
-	fmt.Printf("%d rows inserted\n", rowsAffected)
+	log.Printf("%d rows inserted\n", rowsAffected)
 
 	return nil
 }

@@ -6,7 +6,10 @@ import (
 	"github.com/pkg/errors"
 )
 
-func FindLastSoldier(manzDB sql.DB, marhla int) (int, error) {
+// Finds the `segl_no` of the last soldier registered on Manzoma.
+//
+// This doesn't find all missing `segl_no`s in the database, only returns the last one.
+func (m *Manzoma) FindLastSoldier(marhla int) (int, error) {
 	sqlQuery := `
 		select top (1)
 			segl_no
@@ -15,7 +18,7 @@ func FindLastSoldier(manzDB sql.DB, marhla int) (int, error) {
 		order by segl_no desc
 	`
 
-	rows, err := manzDB.Query(sqlQuery, sql.Named("marhla", marhla))
+	rows, err := m.DB.Query(sqlQuery, sql.Named("marhla", marhla))
 	if err != nil {
 		return 0, errors.WithStack(err)
 	}

@@ -16,9 +16,12 @@ import (
 var syncCommand = &cobra.Command{
 	Use:     "sync [sync_url]",
 	Aliases: []string{"s"},
-	Short:   "sync timezone provided a time url",
+	Short:   "Sync timezone provided a time url",
 	Args:    cobra.ExactArgs(1),
 	RunE:    runSync,
+	Example: strings.TrimSpace(`
+		gomanz sync http://remote-api/time
+	`),
 }
 
 func runSync(cmd *cobra.Command, args []string) error {

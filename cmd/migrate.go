@@ -22,7 +22,7 @@ var migrateCmd = &cobra.Command{
 	Short:   "Migrate soldiers from Access to Manzoma",
 	RunE:    migrateRun,
 	Example: strings.TrimSpace(`
-		gomanz migrate --host http://remote-pc -u sa -p password1 --port 1433
+		gomanz migrate -a /path/to/accessfile.mdb --host http://remote-pc -u sa -p password1 --port 1433
 	`),
 }
 

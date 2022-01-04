@@ -38,7 +38,7 @@ func (m *Manzoma) InsertMany(soldiers *[]Soldier) error {
 
 	for _, soldier := range *soldiers {
 		soldier.Tawzeaa = "بدون توزيع"
-		soldier.Selah = "ادارة الاشارة"
+		soldier.Selah = "اداره الاشاره"
 		soldier.Note = "-"
 
 		sqlInsert := fmt.Sprintf("(%d, %d, %d, N'%s', %d, %d, N'%s', N'%s', N'%s', N'%s', %d, N'%s')",
